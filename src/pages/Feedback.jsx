@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import QuestionCard from "../components/QuestionCard";
 import { useFeedback } from "../context/FeedbackContext";
 
-// คอมโพเนนต์สำหรับแสดงคำถาม
 const Feedback = () => {
   const { feedback } = useFeedback();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -35,21 +34,22 @@ const Feedback = () => {
     }
   };
 
+  const handleBack = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
   return (
-    <div className="p-4">
+    <div className="p-6">
       {questions[currentQuestionIndex] && (
         <QuestionCard
           question={questions[currentQuestionIndex]}
           index={currentQuestionIndex}
           handleNext={handleNext}
+          handleBack={handleBack}  // ส่ง handleBack ให้กับ QuestionCard
         />
       )}
-      <button
-        onClick={handleNext}
-        className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        {currentQuestionIndex < questions.length - 1 ? "Next" : "Submit"}
-      </button>
     </div>
   );
 };
