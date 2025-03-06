@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionCard from "../components/QuestionCard";
 import { useFeedback } from "../context/FeedbackContext";
 
 const Feedback = () => {
-  const { feedback } = useFeedback();
+  const { feedback, resetFeedback } = useFeedback();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    resetFeedback(); // รีเซ็ตค่าทุกครั้งที่เข้าหน้า Feedback ใหม่
+  }, []); // ใช้ array ว่างเพื่อให้ทำงานครั้งเดียว
 
   const questions = [
     {

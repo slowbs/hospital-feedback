@@ -6,7 +6,7 @@ const FeedbackContext = createContext();
 // ใช้ provider สำหรับให้ข้อมูลกับ component ต่าง ๆ
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([]);
-  
+
   const addFeedback = (questionId, response, comment) => {
     setFeedback((prevFeedback) => [
       ...prevFeedback,
@@ -14,8 +14,13 @@ export const FeedbackProvider = ({ children }) => {
     ]);
   };
 
+  // ฟังก์ชันรีเซ็ต feedback
+  const resetFeedback = () => {
+    setFeedback([]); // รีเซ็ตค่าของ feedback
+  };
+
   return (
-    <FeedbackContext.Provider value={{ feedback, addFeedback }}>
+    <FeedbackContext.Provider value={{ feedback, addFeedback, resetFeedback }}>
       {children}
     </FeedbackContext.Provider>
   );
