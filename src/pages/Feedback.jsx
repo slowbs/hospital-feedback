@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import QuestionCard from "../components/QuestionCard";
 import { useFeedback } from "../context/FeedbackContext";
+import Navbar from "../components/Navbar"; // นำเข้า Navbar
 
 const Feedback = () => {
   const { feedback, resetFeedback } = useFeedback();
@@ -10,7 +11,7 @@ const Feedback = () => {
 
   useEffect(() => {
     resetFeedback(); // รีเซ็ตค่าทุกครั้งที่เข้าหน้า Feedback ใหม่
-  }, []); // ใช้ array ว่างเพื่อให้ทำงานครั้งเดียว
+  }, []); // เพิ่ม resetFeedback เป็น dependency
 
   const questions = [
     {
@@ -39,7 +40,6 @@ const Feedback = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // เมื่อคำถามทั้งหมดตอบแล้ว ให้ไปที่หน้าสรุปคำตอบ
       navigate("/summary");
     }
   };
@@ -51,15 +51,18 @@ const Feedback = () => {
   };
 
   return (
-    <div className="p-4">
-      {questions[currentQuestionIndex] && (
-        <QuestionCard
-          question={questions[currentQuestionIndex]}
-          index={currentQuestionIndex}
-          handleNext={handleNext}
-          handleBack={handleBack}
-        />
-      )}
+    <div>
+      <Navbar /> {/* เรียกใช้ Navbar */}
+      <div className="p-4">
+        {questions[currentQuestionIndex] && (
+          <QuestionCard
+            question={questions[currentQuestionIndex]}
+            index={currentQuestionIndex}
+            handleNext={handleNext}
+            handleBack={handleBack}
+          />
+        )}
+      </div>
     </div>
   );
 };
