@@ -25,18 +25,18 @@ const Feedback = () => {
       options: ["1", "2", "3"],
     },
     {
-      id: 4, // คำถามที่เป็น comment
-      text: "Any additional comments?",
-      options: [], // ไม่มีตัวเลือก (กรอกข้อความได้เลย)
+      id: 4,
+      text: "Please provide any additional comments.",
+      options: [],
     },
   ];
-
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      navigate("/thank-you");
+      // เมื่อคำถามทั้งหมดตอบแล้ว ให้ไปที่หน้าสรุปคำตอบ
+      navigate("/summary");
     }
   };
 
@@ -47,13 +47,13 @@ const Feedback = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       {questions[currentQuestionIndex] && (
         <QuestionCard
           question={questions[currentQuestionIndex]}
           index={currentQuestionIndex}
           handleNext={handleNext}
-          handleBack={handleBack}  // ส่ง handleBack ให้กับ QuestionCard
+          handleBack={handleBack}
         />
       )}
     </div>
