@@ -24,7 +24,13 @@ const Feedback = () => {
       text: "Would you recommend this service?",
       options: ["1", "2", "3"],
     },
+    {
+      id: 4, // คำถามที่เป็น comment
+      text: "Any additional comments?",
+      options: [], // ไม่มีตัวเลือก (กรอกข้อความได้เลย)
+    },
   ];
+
 
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
